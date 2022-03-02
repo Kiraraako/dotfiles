@@ -1,0 +1,25 @@
+Host remote_server_name
+    HostName remote_server_ip
+    User login_user
+    Port ssh_port
+    IdentityFile ~/.ssh/id_rsa
+
+# 端口转发登陆
+# 通过第三方代理间接登陆访问受限的机器, 例如在本地机器上直接 ssh 登录内网机器;
+Host remote_server_name
+    HostName remote_server_ip
+    User login_user
+    Port ssh_port
+    IdentityFile ~/.ssh/id_rsa
+    ProxyJump jump_server_name
+    TCPKeepAlive yes
+
+# 另外一种端口转发登陆的方式
+# 可以在本地使用 ansible 在访问受限的机器上执行 playbook.
+Host remote_server_name
+    Hostname remote_server_ip
+    user login_user
+    IdentitiesOnly yes
+    ProxyCommand ssh jump_server_name 'nc -w 14400 %h %p'
+    ServerAliveInterval 60
+    TCPKeepAlive        yes
