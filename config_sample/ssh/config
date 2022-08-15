@@ -28,3 +28,10 @@ Host remote_server_name
     ProxyCommand ssh jump_server_name 'nc -w 14400 %h %p'
     ServerAliveInterval 60
     TCPKeepAlive        yes
+
+# 配置不同的密钥对应不同的 VCS
+# 验证: ssh -T git@github.com 
+Host gitlab.idcos.com
+    HostName gitlab.idcos.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa
